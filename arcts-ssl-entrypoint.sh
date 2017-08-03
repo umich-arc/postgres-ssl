@@ -7,6 +7,11 @@ if [ -z "$POSTGRES_USER" ]; then
   export POSTGRES_USER="postgres";
 fi
 
+if [ -z "$POSTGRES_EMAIL" ]; then
+  export POSTGRES_EMAIL="user@test.com";
+fi
+
+
 echo "Their entry script is kinda rough for us. Quick fix."
 head -n -1 /usr/local/bin/docker-entrypoint.sh > /tmp/docker-entrypoint.sh
 mv /tmp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
@@ -34,7 +39,7 @@ if [ ! -s "$PGDATA/postgresql.crt" ]; then
   echo "CA Certificate";
   cat root.crt
   # Server
-  openssl req -new -out server.req -keyout server.key -nodes -newkey rsa:4096 -subj "/CN=$( hostname )/emailAddress=ybrc-systems@umich.edu"
+  openssl req -new -out server.req -keyout server.key -nodes -newkey rsa:4096 -subj "/CN=$( hostname )/emailAddress=$POSTGRES_EMAIL"
   openssl x509 -req -in server.req -CAkey root.key -CA root.crt -set_serial $RANDOM -sha512 -out server.crt
 
   # Client
