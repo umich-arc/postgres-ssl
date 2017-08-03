@@ -13,3 +13,4 @@ We are provisioning many short lived data services that require secure-by-defaul
 - Configure SSL options via environment variables
 - Allow certs to reside in a different directory (and configure via env)
 - Support multiple versions of Postgres (Currently pinned to 9.6)
+- TravisCI integration / Auto push to Hub
