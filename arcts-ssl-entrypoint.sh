@@ -12,9 +12,11 @@ if [ -z "$POSTGRES_EMAIL" ]; then
 fi
 
 
-echo "Their entry script is kinda rough for us. Quick fix."
-head -n -1 /usr/local/bin/docker-entrypoint.sh > /tmp/docker-entrypoint.sh
-mv /tmp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+if [ ! -s /tmp/docker-entrypoint.sh ]; then
+  echo "Their entry script is kinda rough for us. Quick fix."
+  head -n -1 /usr/local/bin/docker-entrypoint.sh > /tmp/docker-entrypoint.sh
+  cp -rf /tmp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+fi
 
 cat /usr/local/bin/docker-entrypoint.sh | grep gosu
 
