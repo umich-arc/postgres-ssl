@@ -37,19 +37,19 @@ if [ ! -s "$PGDATA/postgresql.crt" ]; then
   # Create SSL certs
   cd /var/lib/postgresql/data/
   # CA
-  openssl req -new -x509 -nodes -out root.crt -keyout root.key -newkey rsa:4096 -sha512 -subj /CN=TheRootCA
+  openssl req -new -x509 -days 3650 -nodes -out root.crt -keyout root.key -newkey rsa:4096 -sha512 -subj /CN=TheRootCA
   echo "CA Certificate";
   cat root.crt
   # Server
   openssl req -new -out server.req -keyout server.key -nodes -newkey rsa:4096 -subj "/CN=$( hostname )/emailAddress=$POSTGRES_EMAIL"
-  openssl x509 -req -in server.req -CAkey root.key -CA root.crt -set_serial $RANDOM -sha512 -out server.crt
+  openssl x509 -req -days 3650 -in server.req -CAkey root.key -CA root.crt -set_serial $RANDOM -sha512 -out server.crt
 
   # Client
   echo "Client Key";
   openssl req -new -out postgresql.req -keyout postgresql.key -nodes -newkey rsa:4096 -subj "/CN=$POSTGRES_USER"
   cat postgresql.key
 
-  openssl x509 -req -in postgresql.req -CAkey root.key -CA root.crt -set_serial $RANDOM -sha512 -out postgresql.crt
+  openssl x509 -req -days 3650 -in postgresql.req -CAkey root.key -CA root.crt -set_serial $RANDOM -sha512 -out postgresql.crt
   echo "Client Certificate";
   cat postgresql.crt
 
