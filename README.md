@@ -4,7 +4,11 @@ Docker container automatically generates SSL certificates and requires client ce
 
 The auto-generated client certs are accessible within the container and also get piped to STDOUT during initialization.
 
-Once started: psql "port=5432 host=192.168.0.10 user=postgres sslcert=./postgresql.crt sslkey=./postgresql.key sslrootcert=./root.crt sslmode=verify-ca"
+Once started:
+
+`psql "port=5432 host=192.168.0.10 user=postgres sslcert=./postgresql.crt sslkey=./postgresql.key sslrootcert=./root.crt sslmode=verify-ca"`
+
+**Note:** The user in the connection string above must match the `$POSTGRES_USER` defined at start (defaults to `postgres`)
 
 #### Why:
 
