@@ -31,7 +31,7 @@ echo "Postgres initialized. Time to SSL.";
 if [ ! -s "$PGDATA/postgresql.crt" ]; then
   # Update HBA to require SSL and Client Cert auth
   head -n -1 /var/lib/postgresql/data/pg_hba.conf > /tmp/pg_hba.conf
-  echo "hostssl all all all cert clientcert=1" >> /tmp/pg_hba.conf
+  echo "hostssl all all all md5 clientcert=1" >> /tmp/pg_hba.conf
   mv /tmp/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf
 
   # Create SSL certs
