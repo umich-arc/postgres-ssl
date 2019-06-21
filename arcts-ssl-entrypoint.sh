@@ -20,10 +20,6 @@ fi
 
 cat /usr/local/bin/docker-entrypoint.sh | grep gosu
 
-# Don't reinvent the wheel
-chmod +x /usr/local/bin/docker-entrypoint.sh && \
-chmod +x /docker-entrypoint.sh && \
-
 ./usr/local/bin/docker-entrypoint.sh "postgres"
 
 echo "Postgres initialized. Time to SSL.";
