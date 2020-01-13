@@ -1,4 +1,6 @@
-FROM postgres:9.6
+ARG DB_VERSION=9.6
+FROM postgres:${DB_VERSION}
+ARG CLIENT_CERT=1
 
 COPY arcts-ssl-entrypoint.sh /usr/local/bin/
 
